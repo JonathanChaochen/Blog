@@ -7,6 +7,12 @@ use App\Post;
 
 class PostsController extends Controller
 {
+
+    public function __construct()
+    {
+      $this->middleware('auth')->except('index', 'show');
+    }
+
     public function index()
     {
       $posts = Post::latest()->get();
@@ -41,12 +47,14 @@ class PostsController extends Controller
       //   'body' => request('body')
       //   ]);
       $this->validate(request(), [
-        'title' => 'required|max:10',
-        'body' => 'required|max:10'
+        'title' => 'required|min:5',
+        'body' => 'required|min:10'
       ]);
-      Post::create( request(['title', 'body']) );
 
 
+      auth()->user()->publish(
+        new Post( request(['title', 'body'])  )
+      );
 
 
       // And then redirect to the home page.

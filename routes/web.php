@@ -6,9 +6,11 @@
 
 Route::get('/', 'PostsController@index')->name('home');
 
+//Post
+
 Route::get('/posts/create', 'PostsController@create');
 
-//when form post
+
 Route::post('posts', 'PostsController@store');
 
 
@@ -18,16 +20,19 @@ Route::get('/posts/{post}', 'PostsController@show');
 Route::post('/posts/{post}/comments', 'CommentsController@store');
 
 
-//User
+//register
 
 Route::get('/register', 'RegistrationController@create' );
 
 Route::post('/register', 'RegistrationController@store' );
 
+//Session
 
+Route::get('/login', 'SessionsController@create');
 
-Route::get('login', 'SessionsController@create');
-Route::get('logout', 'SessionsController@destroy');
+Route::post('login', 'SessionsController@store' );
+
+Route::get('/logout', 'SessionsController@destroy');
 
 
 // Route::post('/posts', 'PostsController@store')
